@@ -29,6 +29,10 @@ HTTP requests from notorious bad actors to `bork.php`.
 
     RewriteCond %{HTTP_USER_AGENT} SomeUglyBot
     RewriteRule  ^.*(\?.*)*$ /bork.php$1 [L]
+    RewriteCond %{HTTP_REFERER} ^http://..*/bork.php
+    RewriteRule  ^.*(\?.*)*$ /bork.php$1 [L]
+
+The last two lines allow you to try out `bork.php` yourself with a browser.
 
 ## Effects
 
@@ -52,11 +56,14 @@ this treatment.
 ![baidu response](https://raw.githubusercontent.com/bediger4000/infinite-fake-website/master/baidu.png)
 
 I started treating Baiduspider poorly 2013-01-01. Baidu seems to be able to handle
-this sort of thing without much trouble.
+this sort of thing without much trouble. It actually looks like Baiduspider detects
+something wrong, and quits asking for many URLs for a while.
 
 ![yandex response](https://raw.githubusercontent.com/bediger4000/infinite-fake-website/master/yandex.png)
 
-Between 2012-10-31 and 2013-10-31, I believed `yandex.ru` to be a bad, spammy sort of
+Between 2012-10-31 and 2013-09-07, I believed `yandex.ru` to be a bad, spammy sort of
 search engine. I now believe I was mistaken, and I owe Yandex people an apology.
 Nevertheless, This chart shows that Yandex's code recovers almost instantly. When I turned
-off `bork.php` for Yandex spiders, the spiders quit asking for funky URLs rapidly.
+off `bork.php` for Yandex spiders, the spiders quit asking for funky URLs rapidly. By 2013-10-30, Yandexbot
+had returned to asking almost entirely for URLs that exist (give a 200 response code). A brief flare up
+happned from 2014-04-11 through 2014-04-15.
