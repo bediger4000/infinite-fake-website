@@ -17,9 +17,9 @@ Yes, this is a dual-use technology. We're all adults here, aren't we?
 
 ## Prerequisites
 
-* Apache httpd
-* mod_php
-* mod_rewrite
+* [Apache httpd](http://httpd.apache.org/)
+* [mod_php](https://wiki.apache.org/httpd/php) or some other way of invoking PHP
+* [mod_rewrite](https://httpd.apache.org/docs/current/mod/mod_rewrite.html)
 
 ## mod_rewrite Configuration
 
@@ -32,7 +32,11 @@ HTTP requests from notorious bad actors to `bork.php`.
     RewriteCond %{HTTP_REFERER} ^http://..*/bork.php
     RewriteRule  ^.*(\?.*)*$ /bork.php$1 [L]
 
-The last two lines allow you to try out `bork.php` yourself with a browser.
+The first two lines cause any HTTP request with the string `someUglyBot` in its User Agent string to be satisfied by `bork.php` output. The last two lines allow you to try out `bork.php` yourself with a browser.
+
+There's too many ways to configure Apache for me to tell you where to put this. But it does need to be either in `httpd.conf` or some file included by `httpd.conf`.
+
+You replace `SomeUglyBot` by a string that appears in the User Agent of some organization that you want to mess with. I find that "AhrefsBot" and "Ezooms" are two good candidate User Agent sub-strings.
 
 ## Effects
 
@@ -67,3 +71,5 @@ Nevertheless, This chart shows that Yandex's code recovers almost instantly. Whe
 off `bork.php` for Yandex spiders, the spiders quit asking for funky URLs rapidly. By 2013-10-30, Yandexbot
 had returned to asking almost entirely for URLs that exist (give a 200 response code). A brief flare up
 happned from 2014-04-11 through 2014-04-15.
+
+I conclude that `bork.php` has more effect on shadier spiders, less effect on well-behaved spiders.
