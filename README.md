@@ -58,24 +58,24 @@ like an SEO search engine?
 First, here's a record of the total number of HTTP requests made of my
 web site, [http://stratigery.com](http://stratigery.com) since 2009-02-11.
 
-![total daily hits](https://raw.githubusercontent.com/bediger4000/infinite-fake-website/master/total.png)
+![total daily hits](total.png?raw=true)
 
 I started borking up spiders that I thought were bad actors 2012-10-31. I started
 running a [WordPress honey pot](http://stratigery.com/phparasites/) towards the
 end of May, 2013.
 
-![ahrefs response](https://raw.githubusercontent.com/bediger4000/infinite-fake-website/master/ahrefs.png)
+![ahrefs response](ahrefs.png?raw=true)
 
 I sent Ahrefs down the rabbit hole beginning 2012-12-29. They really react poorly to
 this treatment.
 
-![baidu response](https://raw.githubusercontent.com/bediger4000/infinite-fake-website/master/baidu.png)
+![baidu response](baidu.png?raw=true)
 
 I started treating Baiduspider poorly 2013-01-01. Baidu seems to be able to handle
 this sort of thing without much trouble. It actually looks like Baiduspider detects
 something wrong, and quits asking for many URLs for a while.
 
-![yandex response](https://raw.githubusercontent.com/bediger4000/infinite-fake-website/master/yandex.png)
+![yandex response](yandex.png?raw=true)
 
 Between 2012-10-31 and 2013-09-07, I believed `yandex.ru` to be a bad, spammy sort of
 search engine. I now believe I was mistaken, and I owe Yandex people an apology.
@@ -84,4 +84,24 @@ off `bork.php` for Yandex spiders, the spiders quit asking for funky URLs rapidl
 had returned to asking almost entirely for URLs that exist (give a 200 response code). A brief flare up
 happned from 2014-04-11 through 2014-04-15.
 
-I conclude that `bork.php` has more effect on shadier spiders, less effect on well-behaved spiders.
+![blexbot response](blexbot.png?raw=true)
+
+Around 2018-12-01,
+I decided that the spider that gives you user agent of 
+`Mozilla/5.0 (compatible; BLEXBot/1.0; +http://webmeup.com/crawler.html)`
+or
+`Mozilla/5.0 (compatible; BLEXBot/1.0; +http://webmeup-crawler.com/)`
+was up to no good.
+BLEXBot started asking for URLs that were obviously the product of `bork.php`,
+but without getting fed `bork.php` HTML.
+BLEXBot was following links that `bork.php` had given to another spider.
+BLEXBot also started asking for URLs from some SEO link spamming software
+that got downloaded to my WordPress honey pot.
+
+I gave every access by BLEXBot to `bork.php`.
+BLEXBot went nuts,
+from making a desultory 10 to 100 HTTP requests a day
+to making 2000-4000 HTTP requests a day.
+
+I conclude that `bork.php` has more effect on shadier, SEO spiders,
+less effect on spiders associated with real businesses.
