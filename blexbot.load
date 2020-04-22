@@ -1,0 +1,14 @@
+set term png size 640,480
+#set term x11
+set xdata time
+set timefmt '%Y-%m-%d'
+set key off
+set grid
+set title "Blexbot daily call counts"
+set xtics rotate by -45
+set xlabel "Date"
+set ylabel "Blexbot calls per Day"
+#set yra [0:5000]  # Google did 250,000 one day.
+set out 'blexbot.png'
+plot \
+	'blexbot.dat'   using 1:2 with points pointtype 7 pointsize .75 lc rgb "orange" title 'blexbot'

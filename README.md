@@ -101,7 +101,19 @@ that got downloaded to my WordPress honey pot.
 I gave every access by BLEXBot to `bork.php`.
 BLEXBot went nuts,
 from making a desultory 10 to 100 HTTP requests a day
-to making 2000-4000 HTTP requests a day.
+to making 2000-9000 HTTP requests a day,
+until 2019-12-31.
+On 2020-01-01, BLEXbot dropped to 97 hits per day.
+Between 2020-01-01 and 2020-04-09, BLEXbot has made no more than 490
+calls in a single day. In those 100 days, BLEXbot has made calls on
+only 22 days.
+In the previous year, it made calls on 364 days,
+but my server had some outages, so effectively every day.
+This radical change happening on January 1st probably isn't coincidental.
+I imagine the BLEXbot people did some kind of cull or other analysis,
+and the 3144 unique URLs from a single site probably stood out.
+
+## Conclusion
 
 I conclude that `bork.php` has more effect on shadier, SEO spiders,
 less effect on spiders associated with real businesses.
