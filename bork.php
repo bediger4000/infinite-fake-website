@@ -647,10 +647,18 @@ function rnd_bin($length)
     echo substr($tmp, 0, $length);
 }
 
+function send_favicon() {
+	send_image_size('ico', 16, 16);
+}
 
 function send_image($suffix) {
 	$width = rand(100, 500);
 	$height = rand(100, 500);
+	send_image_size($suffix, $width, $height);
+}
+
+function send_image_size($suffix, $width, $height) {
+
 	$img = imagecreatetruecolor($width, $height);
 
 	// define colors
@@ -822,7 +830,10 @@ User-agent: *
 Allow: /<?php
 		echo random_identifier(). "\n";
 		exit(0);  # robots.txt sent to a "robot".
-	}
+} else if ($path == "/favicon.ico") {
+		send_favicon();
+		exit(0);
+}
 	if (strstr($path, ".jpg") || strstr($path, ".jpeg")) {
 		header("Content-type: image/jpeg");
 		send_image('jpg');
@@ -879,10 +890,10 @@ Allow: /<?php
 <html>
 <head>
 <meta name="google-site-verification" content="<?php echo random_identifier();?>" />
-<title><?php echo $lig->getContent(rand(1, 5)); ?></title>
+<title><?php echo $lig->getContent(rand(1, 5), 'txt'); ?></title>
 </head>
 <body>
-<h1><?php echo $lig->getContent(rand(2, 6)); ?></h1>
+<h1><?php echo $lig->getContent(rand(2, 6), 'txt'); ?></h1>
 <?php
 
 # Tarpit.
