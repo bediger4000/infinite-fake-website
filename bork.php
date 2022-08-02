@@ -61,6 +61,7 @@ class LoremIpsumGenerator {
 		'ut',
 		'hut',
 		'butt',
+		'landing strip',
 		'orci',
 		'orca',
 		'porcine',
@@ -125,6 +126,7 @@ class LoremIpsumGenerator {
 		'Justin Bieber',
 		'Selena Gomez',
 		'Mary Tyler Moore',
+		'Sydney Sweeney',
 		'lacus',
 		'sheet metal screws',
 		'quisque',
@@ -167,8 +169,9 @@ class LoremIpsumGenerator {
 		'salt',
 		'pepper',
 		'tabasco',
-		'taco sauce',
+		'sandwich sauce',
 		'mustard',
+		'aoli',
 		'mayonaise',
 		'pickle relish',
 		'drawn butter',
@@ -183,6 +186,11 @@ class LoremIpsumGenerator {
 		'drawn butter',
 		'mint chutney',
 		'rag weed',
+		'sauerkraut',
+		'kraut',
+		'grilled onions',
+		'meteoritic',
+		'octahedral',
 		'Liberace',
 		'Matt Damon',
 		'Jennifer Lopez',
@@ -217,6 +225,7 @@ class LoremIpsumGenerator {
 		'augue',
 		'Eliot Spitzer',
 		'Nancy Grace',
+		'Don Jr',
 		'leo',
 		'eget',
 		'semper',
@@ -230,6 +239,7 @@ class LoremIpsumGenerator {
 		'malesuada',
 		'rhoncus',
 		'Rhonda',
+		'Rhoda',
 		'Vladimir Putin',
 		'unclothed',
 		'porta',
@@ -273,6 +283,8 @@ class LoremIpsumGenerator {
 		'feugiat',
 		'egestas',
 		'class',
+		'strapless',
+		'bodice',
 		'aptent',
 		'egotastic',
 		'craptastic',
@@ -648,7 +660,7 @@ function rnd_bin($length)
 }
 
 function send_favicon() {
-	send_image_size('ico', 16, 16);
+	send_image_size('gif', 16, 16);
 }
 
 function send_image($suffix) {
@@ -831,8 +843,9 @@ Allow: /<?php
 		echo random_identifier(). "\n";
 		exit(0);  # robots.txt sent to a "robot".
 } else if ($path == "/favicon.ico") {
-		send_favicon();
-		exit(0);
+	header("Content-type: image/x-icon");
+	send_favicon();
+	exit(0);
 }
 	if (strstr($path, ".jpg") || strstr($path, ".jpeg")) {
 		header("Content-type: image/jpeg");
