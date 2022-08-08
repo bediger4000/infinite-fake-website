@@ -19,10 +19,13 @@ Yes, this is a dual-use technology. We're all adults here, aren't we?
 * Delays a few seconds every time it's invoked.
 * Give a random "google-site-verification" code.
 * When called with `.html` URL suffix produces HTML. `gif`, `jpeg`, 'png' URL suffixes
-  produce random images of the appropriate image format.
+produce random images of the appropriate image format.
+Any HTML it generates has a lot of "click here" links to randomly-named URLs
+on its website.
 * When retrieved as `robots.txt`, allows all User Agents for `/`, `/porn`, `/private`
   and a randomly-named URI. If you use `bork.php`, don't be surprised at the rubbish
   that shows up in your `access_log` file.
+* Gives every browser who asks a random `favicon.ico` file.
 * Produces random HTML, complete with "content" that includes Latin, B-list celebrities,
   condiments, and underwear teminology.
 * Produces random streams of binary bits for `.torrent`, `.mp3`, `.gz` URL suffixes.
@@ -49,6 +52,37 @@ The first two lines cause any HTTP request with the string `someUglyBot` in its 
 There's too many ways to configure Apache for me to tell you where to put this. But it does need to be either in `httpd.conf` or some file included by `httpd.conf`.
 
 You replace `SomeUglyBot` by a string that appears in the User Agent of some organization that you want to mess with. I find that "AhrefsBot" and "MJ12bot" are two good candidate User Agent sub-strings.
+
+### CentOS 8 Installation
+
+#### Packages
+
+I think these are the packages you need to install explicitly.
+Installing these via `dnf` installs a number of other packages.
+
+* httpd
+* httpd-tools
+* php
+* php-gd
+
+#### Extra files
+
+* [/etc/httpd/conf.d/rewrite.conf](centos8_rewrite.conf)
+
+That particular rewrite will cause every HTTP request to run `bork.php`,
+giving any visitor a colorful, infinitely-deep website to visit!
+
+* Put `bork.php` in directory `/var/www/html/`.
+
+#### Change configuration
+
+Remove the '#' from a line in `/etc/httpd/conf/httpd.conf`:
+```
+#LoadModule rewrite_module modules/mod_rewrite.so
+```
+
+You need to `systemctl restart httpd` after installing packages,
+creating the `rewrite.conf` file and changing configuration.
 
 ## Effects
 
