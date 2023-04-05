@@ -862,6 +862,24 @@ Allow: /<?php
 		send_image('png');
 		exit(0);
 	}
+	if (strstr($path, ".git/config") {
+		header("Content-Type: application/octet-stream");
+?>[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:yorgi-gromolski/spintronic-tractor-parts.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[branch "fuck-you-moron"]
+	remote = origin
+	merge = refs/heads/fuck-you-moron
+<?php
+	}
 	if (strstr($path, ".torrent")) {
 		header("Content-Type: application/x-bittorrent");
 		header("Content-Transfer-Encoding: binary");
