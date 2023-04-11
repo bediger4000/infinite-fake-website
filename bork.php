@@ -862,7 +862,7 @@ Allow: /<?php
 		send_image('png');
 		exit(0);
 	}
-	if (strstr($path, ".git/config") {
+	if (strstr($path, ".git/config")) {
 		header("Content-Type: application/octet-stream");
 ?>[core]
 	repositoryformatversion = 0
