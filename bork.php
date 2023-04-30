@@ -431,7 +431,6 @@ class LoremIpsumGenerator {
 		{
 			$index = array_rand($this->words);
 			$word = $this->words[$index];
-			//echo $index . '=>' . $word . '<br />';
 			
 			if($i > 0 && $arr[$i - 1] == $word)
 				$i--;
@@ -444,7 +443,6 @@ class LoremIpsumGenerator {
 	{
 		$words = array();
 		$this->getWords($words, $count, $loremipsum);
-		//print_r($words);
 		
 		$delta = $count;
 		$curr = 0;
@@ -452,7 +450,6 @@ class LoremIpsumGenerator {
 		while($delta > 0)
 		{
 			$senSize = $this->gaussianSentence();
-			//echo $curr . '<br />';
 			if(($delta - $senSize) < 4)
 				$senSize = $delta;
 
@@ -516,9 +513,7 @@ class LoremIpsumGenerator {
 				$currCount = 0;
 				$paragraphs[] = $curr;
 				$curr = array();
-				//print_r($paragraphs);
 			}
-			//print_r($paragraphs);
 		}
 		
 		return $paragraphs;
@@ -528,7 +523,6 @@ class LoremIpsumGenerator {
 	{
 		$sentences = $this->getPlain($count, $loremipsum, false);
 		$paragraphs = $this->getParagraphArr($sentences);
-		//print_r($paragraphs);
 		
 		$paragraphStr = array();
 		foreach($paragraphs as $p)
@@ -771,6 +765,82 @@ function random_identifier() {
 	return $random_ident;
 }
 
+function output_map() {
+	echo "{";
+	$leader = " ";
+	for ($elements = rand(1, 10); $elements >= 0; --$elements) {
+        echo $leader."\"".random_identifier()."\": ";
+        switch (rand(0,6)) {
+        case 0: # integer
+			echo rand(), "\n";
+			break;
+        case 1: # string
+            echo "\"".random_identifier()."\"\n";
+			break;
+        case 2: # true
+			echo "true\n";
+			break;
+        case 3: # false
+			echo "false\n";
+			break;
+        case 4: # floating point number
+			echo (float) mt_rand () / (float) mt_getrandmax () * 1000.;
+			echo "\n";
+			break;
+        case 5: # array
+            output_array();
+			break;
+        case 6: # map
+            output_map();
+			break;
+        }
+		$leader = ',';
+	}
+	echo "}\n";
+}
+
+function output_array() {
+    echo "[";
+    $leader = ' ';
+    $v = rand(0,3);
+    for ($elements = rand(1,10); $elements >= 0; --$elements) {
+		echo $leader;
+		value($v);
+        $leader = ',';
+    }
+    echo "]\n";
+}
+
+function value($typ) {
+    switch ($typ) {
+    case 0: # bool
+        switch (rand(0,1)) {
+        case 0:
+            echo "true\n";
+			break;
+        case 1:
+            echo "false\n";
+			break;
+        }
+		break;
+    case 1: # string
+        echo '"'.random_identifier().'"'."\n";
+		break;
+    case 2: # float
+		echo (float) mt_rand () / (float) mt_getrandmax () * 1000.;
+		echo "\n";
+		break;
+    default:
+        $n = rand();
+        if (rand(0,1) == 1) {
+            $n = -$n;
+        }
+        echo $n."\n";
+    }
+}
+
+
+
 function random_img_url() {
 	$img_url_suffixes = array('png', 'gif', 'jpg');
 	$suffix = $img_url_suffixes[array_rand($img_url_suffixes)];
@@ -886,6 +956,11 @@ Allow: /<?php
 		header("Content-Length: 2048");
 		# Someday, this should send a torrent-a-like stream of randomness.
 		rnd_bin(2048);
+		exit(0);
+	}
+	if (strstr($path, ".json")) {
+		header("Content-Type: application/json");
+		output_map();
 		exit(0);
 	}
 	if (strstr($path, ".mp3")) {
