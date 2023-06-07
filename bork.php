@@ -871,26 +871,29 @@ function random_url() {
 # of them making any sense, some of them invalid,
 # in that they have the wrong domain.
 if (rand(0, 1)) {
-	$host = $_SERVER["SERVER_NAME"];
-	$expire = time()+60*60*24*rand(1,33);
-	setcookie("user", randomstring(), $expire, $host);
-	setcookie("JSESSIONID", randomstring(), $expire, $host);
-	setcookie("PHPSESSIONID", randomstring(), $expire, $host);
-	setcookie("SESSIONID", randomstring(), $expire, $host);
-	setcookie(random_identifier(), randomstring(), $expire, $host);
 
-	# These almost always have a domain that makes the browser not save them.
-	# Who knows what a bot does with a cookie?
-	setcookie(random_identifier(), randomstring(), $expire, ".".random_identifier().".com");
-	$cookie_cnt = rand(0, 25);
-	for ($i = 0; $i < $cookie_cnt; ++$i) {
-		$expire = time()+60*60*24*rand(21, 67);
-		setcookie(
-			random_identifier(),
-			randomstring(),
-			$expire,
-			$host
-		);
+	if (isset($_SERVER["SERVER_NAME"])) {
+		$host = $_SERVER["SERVER_NAME"];
+		$expire = time()+60*60*24*rand(1,33);
+		setcookie("user", randomstring(), $expire, $host);
+		setcookie("JSESSIONID", randomstring(), $expire, $host);
+		setcookie("PHPSESSIONID", randomstring(), $expire, $host);
+		setcookie("SESSIONID", randomstring(), $expire, $host);
+		setcookie(random_identifier(), randomstring(), $expire, $host);
+
+		# These almost always have a domain that makes the browser not save them.
+		# Who knows what a bot does with a cookie?
+		setcookie(random_identifier(), randomstring(), $expire, ".".random_identifier().".com");
+		$cookie_cnt = rand(0, 25);
+		for ($i = 0; $i < $cookie_cnt; ++$i) {
+			$expire = time()+60*60*24*rand(21, 67);
+			setcookie(
+				random_identifier(),
+				randomstring(),
+				$expire,
+				$host
+			);
+		}
 	}
 }
 
