@@ -84,6 +84,12 @@ Remove the '#' from a line in `/etc/httpd/conf/httpd.conf`:
 You need to `systemctl restart httpd` after installing packages,
 creating the `rewrite.conf` file and changing configuration.
 
+#### Characterization of randomly-chosed delay in responding
+
+`bork.php` does do some tarpitting.
+It delays responding to a request for a few seconds,
+between 1 and 23, mean of about 14 seconds, median of 17 seconds.
+
 ## Effects
 
 The question becomes what does using `bork.php` do to a bad actor
