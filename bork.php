@@ -862,7 +862,7 @@ function random_url() {
 	}
 
 	if (rand(0,5) == 5) {
-		$url = 'http://' . random_identifier() . '.' . random_domain() . '/' . $url;
+		$url = 'https://' . random_identifier() . '.' . random_domain() . '/' . $url;
 	}
 	return $url;
 }
@@ -871,34 +871,32 @@ function random_url() {
 # of them making any sense, some of them invalid,
 # in that they have the wrong domain.
 if (rand(0, 1)) {
+	$host = $_SERVER["SERVER_NAME"];
+	$expire = time()+60*60*24*rand(1,33);
+	setcookie("user", randomstring(), $expire, $host);
+	setcookie("JSESSIONID", randomstring(), $expire, $host);
+	setcookie("PHPSESSIONID", randomstring(), $expire, $host);
+	setcookie("SESSIONID", randomstring(), $expire, $host);
+	setcookie(random_identifier(), randomstring(), $expire, $host);
 
-	if (isset($_SERVER["SERVER_NAME"])) {
-		$host = $_SERVER["SERVER_NAME"];
-		$expire = time()+60*60*24*rand(1,33);
-		setcookie("user", randomstring(), $expire, $host);
-		setcookie("JSESSIONID", randomstring(), $expire, $host);
-		setcookie("PHPSESSIONID", randomstring(), $expire, $host);
-		setcookie("SESSIONID", randomstring(), $expire, $host);
-		setcookie(random_identifier(), randomstring(), $expire, $host);
-
-		# These almost always have a domain that makes the browser not save them.
-		# Who knows what a bot does with a cookie?
-		setcookie(random_identifier(), randomstring(), $expire, ".".random_identifier().".com");
-		$cookie_cnt = rand(0, 25);
-		for ($i = 0; $i < $cookie_cnt; ++$i) {
-			$expire = time()+60*60*24*rand(21, 67);
-			setcookie(
-				random_identifier(),
-				randomstring(),
-				$expire,
-				$host
-			);
-		}
+	# These almost always have a domain that makes the browser not save them.
+	# Who knows what a bot does with a cookie?
+	setcookie(random_identifier(), randomstring(), $expire, ".".random_identifier().".com");
+	$cookie_cnt = rand(0, 25);
+	for ($i = 0; $i < $cookie_cnt; ++$i) {
+		$expire = time()+60*60*24*rand(21, 67);
+		setcookie(
+			random_identifier(),
+			randomstring(),
+			$expire,
+			$host
+		);
 	}
 }
 
 $url = parse_url($_SERVER['SCRIPT_URL']);
 $path = $url['path'];
+
 if ($path == '/robots.txt') {
 	header("Content-type: text/text");
 ?>
@@ -915,7 +913,8 @@ User-agent: *
 Allow: /<?php
 		echo random_identifier(). "\n";
 		exit(0);  # robots.txt sent to a "robot".
-} else if ($path == "/favicon.ico") {
+} 
+if ($path == "/favicon.ico") {
 	header("Content-type: image/x-icon");
 	send_favicon();
 	exit(0);
@@ -935,7 +934,7 @@ Allow: /<?php
 		send_image('png');
 		exit(0);
 	}
-	if (strstr($path, ".git/config")) {
+	if (strstr($path, ".git/config") != false) {
 		header("Content-Type: application/octet-stream");
 ?>[core]
 	repositoryformatversion = 0
@@ -943,25 +942,27 @@ Allow: /<?php
 	bare = false
 	logallrefupdates = true
 [remote "origin"]
-	url = git@github.com:yorgi-gromolski/spintronic-tractor-parts.git
+	url = git@github.com:<?php echo random_identifier();?>/<?php echo random_identifier();?>.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
 	remote = origin
 	merge = refs/heads/main
-[branch "fuck-you-moron"]
+[branch "<?php echo random_identifier(); ?>"]
 	remote = origin
 	merge = refs/heads/fuck-you-moron
 <?php
+		exit(0);
 	}
-	if (strstr($path, ".torrent")) {
+
+if (strstr($path, ".torrent")) {
 		header("Content-Type: application/x-bittorrent");
 		header("Content-Transfer-Encoding: binary");
 		header("Content-Length: 2048");
 		# Someday, this should send a torrent-a-like stream of randomness.
 		rnd_bin(2048);
 		exit(0);
-	}
-	if (strstr($path, ".json")) {
+}
+if (strstr($path, ".json")) {
 		header("Content-Type: application/json");
 		output_map();
 		exit(0);
