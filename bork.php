@@ -937,21 +937,27 @@ if ($path == "/favicon.ico") {
 	if (strstr($path, ".git/config") != false) {
 		header("Content-Type: application/octet-stream");
 ?>[core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = false
-	logallrefupdates = true
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
 [remote "origin"]
-	url = git@github.com:<?php echo random_identifier();?>/<?php echo random_identifier();?>.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
+    url = git@github.com:yorgi-gromolski/spintronic-tractor-parts.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "main"]
-	remote = origin
-	merge = refs/heads/main
+    remote = origin
+    merge = refs/heads/main
+[branch "fuck-you-moron"]
+    url = git@github.com:richard-nixon/fartpipe.git
+    remote = origin
+    merge = refs/heads/fuck-you-moron
 [branch "<?php echo random_identifier(); ?>"]
-	remote = origin
-	merge = refs/heads/fuck-you-moron
+    url = git@github.com:<?php echo random_identifier()."/".random_identifier().".git\n"; ?>
+    remote = origin
+    merge = refs/heads/<?php echo random_identifier()."\n"; ?>
 <?php
-		exit(0);
+        exit(0);
+
 	}
 
 if (strstr($path, ".torrent")) {
