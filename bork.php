@@ -870,7 +870,7 @@ function random_url() {
 # Set a bunch of cookies in the browser, none
 # of them making any sense, some of them invalid,
 # in that they have the wrong domain.
-if (rand(0, 1)) {
+if (rand(0, 1) && isset($_SERVER["SERVER_NAME"])) {
 	$host = $_SERVER["SERVER_NAME"];
 	$expire = time()+60*60*24*rand(1,33);
 	setcookie("user", randomstring(), $expire, $host);
