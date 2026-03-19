@@ -30,6 +30,20 @@ on its website.
   condiments, and underwear teminology.
 * Produces random streams of binary bits for `.torrent`, `.mp3`, `.gz` URL suffixes.
 
+#### Try it
+
+Since you're running Linux, use the `bash` shell:
+
+```
+$ SCRIPT_URL=.git/config php bork.php > fake.git.config
+$ SCRIPT_URL=random.html php ./bork.php > random.html
+$ SCRIPT_URL=/robots.txt php bork.php > fake.robots.txt
+$ SCRIPT_URL=something.gif php bork.php > random.gif
+$ SCRIPT_URL=somethingelse.json php bork.php > random.json
+```
+
+Aren't those files wonderful?
+
 ## Prerequisites
 
 * [Apache httpd](http://httpd.apache.org/)
