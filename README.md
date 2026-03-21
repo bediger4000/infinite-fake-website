@@ -17,21 +17,23 @@ Yes, this is a dual-use technology. We're all adults here, aren't we?
 ## Features
 
 * Delays a few seconds every time it's invoked.
-* When run from an HTTP server, 50% set at least 6, and up to 31,
+* When run from an HTTP server, 50% of the runs set at least 6, and up to 31
 browser cookies full of junk, each with an expiration date up to 33 hours in the future.
 * Give a random "google-site-verification" code.
 * When called with `.html` URL suffix produces HTML. `gif`, `jpeg`, 'png' URL suffixes
 produce random images of the appropriate image format.
 Any HTML it generates has a lot of "click here" links to randomly-named URLs
 on its website.
+The random HTML "content" includes Latin, B-list celebrities,
+condiments, and underwear teminology.
 * When retrieved as `robots.txt`, allows all User Agents for `/`, `/porn`, `/private`
-  and a randomly-named URI. If you use `bork.php`, don't be surprised at the rubbish
-  that shows up in your `access_log` file.
+and a randomly-named URI. If you use `bork.php`, don't be surprised at the rubbish
+that shows up in your `access_log` file.
 * When retrieved as `.git/config`, produces a mildly insulting `git` repo
 configuration file, complete with one randomly-named and originated branch.
+* Generates site map XML when retrieved as `sitemap.xml`.
+Changes on every invocation, I don't know what scrapers will do with this.
 * Gives every browser who asks a random `favicon.ico` file.
-* Produces random HTML, complete with "content" that includes Latin, B-list celebrities,
-  condiments, and underwear teminology.
 * Produces random streams of binary bits for `.torrent`, `.mp3`, `.gz` URL suffixes.
 
 #### Try it
