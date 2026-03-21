@@ -16,7 +16,7 @@ Yes, this is a dual-use technology. We're all adults here, aren't we?
 
 ## Features
 
-* Delays a few seconds every time it's invoked.
+* Delays a few seconds every time it's invoked with a .html URL.
 * When run from an HTTP server, 50% of the runs set at least 6, and up to 31
 browser cookies full of junk, each with an expiration date up to 33 hours in the future.
 * Give a random "google-site-verification" code.
@@ -46,6 +46,7 @@ $ SCRIPT_URL=random.html php ./bork.php > random.html
 $ SCRIPT_URL=/robots.txt php bork.php > fake.robots.txt
 $ SCRIPT_URL=something.gif php bork.php > random.gif
 $ SCRIPT_URL=somethingelse.json php bork.php > random.json
+$ SERVER_NAME=scrump.ai SCRIPT_URL=sitemap.xml php bork.php > random.sitemap.xml
 ```
 
 Aren't those files wonderful?
