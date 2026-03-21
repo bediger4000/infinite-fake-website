@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("America/Denver");
+$date = new DateTimeImmutable();
 class LoremIpsumGenerator {
 	/**
 	*	Copyright (c) 2009, Mathew Tinsley (tinsley@tinsology.net)
@@ -657,6 +659,65 @@ function send_favicon() {
 	send_image_size('gif', 16, 16);
 }
 
+function send_sitemap() {
+
+	global $date;
+
+	echo "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n";
+	echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"\n";
+	echo "  xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">\n";
+
+	if (isset($_SERVER["SERVER_NAME"])) {
+		$server = 'https://'.$_SERVER["SERVER_NAME"];
+	} else {
+		$server = 'https://localhost';
+	}
+
+	$timestamp = $date->format(DateTimeInterface::ISO8601);
+
+	# lastest "post", done just now, shockingly.
+	echo "  <url>\n";
+	echo "    <loc>".$server."/posts/".random_identifier()."/</loc>\n";
+	echo "    <lastmod>".$timestamp."/</loc>\n";
+	echo "    <changefreq>weekly</changefreq>\n";
+	echo "    <priority>0.5</priority>\n";
+	echo "  </url><url>\n";
+    echo "    <loc>".$server."/tags/</loc>\n";
+	echo "    <lastmod>".$timestamp."/</loc>\n";
+    echo "    <changefreq>weekly</changefreq>\n";
+    echo "    <priority>0.5</priority>\n";
+    echo "  </url><url>\n";
+    echo "    <loc>".$server."/posts/</loc>\n";
+	echo "    <lastmod>".$timestamp."/</loc>\n";
+    echo "    <changefreq>weekly</changefreq>\n";
+    echo "    <priority>0.5</priority>\n";
+    echo "  </url>";
+
+	# Some tags
+	$tags_count = rand(10, 30);
+	for($i = 0; $i < $tags_count; $i++) {
+		echo "<url>\n";
+		echo "    <loc>".$server."/tags/".random_identifier()."/</loc>\n";
+		echo "    <lastmod>".$timestamp."/</loc>\n";
+		echo "    <changefreq>weekly</changefreq>\n";
+		echo "    <priority>0.5</priority>\n";
+		echo "  </url>";
+	}
+
+	# Long list of "posts" that were made some time in the past
+	$posts_count = rand(50, 150);
+	for($i = 0; $i < $posts_count; $i++) {
+		echo "<url>\n";
+		echo "    <loc>".$server."/posts/".random_identifier()."/</loc>\n";
+		echo "    <lastmod>".$timestamp."/</loc>\n";
+		echo "    <changefreq>weekly</changefreq>\n";
+		echo "    <priority>0.5</priority>\n";
+		echo "  </url>";
+	}
+
+	echo "\n</urlset>\n";
+}
+
 function send_image($suffix) {
 	$width = rand(100, 500);
 	$height = rand(100, 500);
@@ -934,6 +995,10 @@ if ($path == "/favicon.ico") {
 		send_image('png');
 		exit(0);
 	}
+	if (strstr($path, "sitemap.xml") != false) {
+		send_sitemap();
+		exit(0);
+	}
 	if (strstr($path, ".git/config") != false) {
 		header("Content-Type: application/octet-stream");
 ?>[core]
@@ -1086,6 +1151,6 @@ for ($para = 0; $para < $para_cnt; ++$para) {
 	}
 }
 ?>
-<p><em>Copyright (C) 2012 - 2013</em></p>
+	<p><em>Copyright &copy; 2012 - <?php echo $date->format("Y");?>, Parcivius Dicksuck. All rights reserved.</em></p>
 </body>
 </html>
